@@ -207,13 +207,13 @@ function carregaListaDespesas(despesas = Array(), filtroAtivado = false){
         btn.innerHTML = '<i class="fas fa-times"></i>'
         btn.id = `id_despesa_${d.id}`
         btn.onclick = function(){
-            let id = this.id.replace('id_despesa_', '')
 
+            let id = this.id.replace('id_despesa_', '')
             bd.remover(id)
 
-            window.location.reload()
+            dialogRemovido()
+            $('#erroGravacao').modal('show')
             
-            alert(`Despesa ${id} removida com sucesso`)
         }
         linha.insertCell(4).append(btn)
 
@@ -235,4 +235,12 @@ function pesquisaDespesa(){
     let despesas = bd.pesquisar(despesa)
 
     carregaListaDespesas(despesas, true)
+}
+
+function dialogRemovido(){
+    document.getElementById('header-modal').className = 'modal-header text-warning'
+    document.getElementById('titulo-modal').innerHTML = 'Despesa Excluída!'
+    document.getElementById('corpo-modal').innerHTML = 'A despesa foi excluída com sucesso'
+    document.getElementById('botao-close').className = 'btn btn-warning'
+    document.getElementById('botao-close').innerHTML = 'Fechar'
 }
